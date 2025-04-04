@@ -1,3 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
+
+String formatTimestamp(Timestamp timestamp) {
+  DateTime dateTime = timestamp.toDate(); // Convert Timestamp to DateTime
+  return DateFormat('HH:mm').format(dateTime); // Format as 24-hour time
+}
 
 
 

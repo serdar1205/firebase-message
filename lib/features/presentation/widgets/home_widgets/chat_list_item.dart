@@ -1,11 +1,7 @@
-
-
 import 'package:firebase_message/core/constants/colors/app_colors.dart';
 import 'package:firebase_message/features/domain/entities/user_entity.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../core/utils/date_converter.dart';
-import '../shimmer_image.dart';
 
 class ChatListItem extends StatelessWidget {
   const ChatListItem({
@@ -22,7 +18,7 @@ class ChatListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,63 +26,72 @@ class ChatListItem extends StatelessWidget {
           Stack(
             alignment: Alignment.bottomRight,
             children: [
-              Container(
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(60)),
+              CircleAvatar(
+                radius: 30,
+                backgroundColor:
+                    AvatarColorHelper.getColor(user.fullName ?? user.email!),
+                child: Text(
+                  user.fullName![0].toUpperCase(),
+                  // First letter as avatar text
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold),
                 ),
-                child:ImageWithShimmer(imageUrl:'', width: 60, height: 60,)
               ),
-              if(isOnline) Container(
-                width: 12,
-                height: 12,
-                margin: const EdgeInsets.only(right: 4, bottom: 2),
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(5)),
-                  border: Border.all(
-                    width: 2,
-                    color: AppColors.white,
-                  )
-                ),
-                child: Container(
+              if (isOnline)
+                Container(
+                  width: 12,
+                  height: 12,
+                  margin: const EdgeInsets.only(right: 4, bottom: 2),
                   clipBehavior: Clip.antiAlias,
-                  decoration: const BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.all(Radius.circular(3)),
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(5)),
+                      border: Border.all(
+                        width: 2,
+                        color: AppColors.white,
+                      )),
+                  child: Container(
+                    clipBehavior: Clip.antiAlias,
+                    decoration: const BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.all(Radius.circular(3)),
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: const EdgeInsets.fromLTRB(10, 5, 10, 0),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(7)),
-                  ),
-                  child: Text(user.fullName!, style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600
-                  ),
-                    overflow: TextOverflow.ellipsis,),
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(7)),
                 ),
-                Container(
-                  margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(7)),
-                  ),
-                  child: Text(user.lastMessageBody!,
-                    style:  TextStyle(fontWeight: FontWeight.w500,fontSize: 12,
+                child: Text(
+                  user.fullName ?? '',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(7)),
+                ),
+                child: Text(
+                  user.lastMessageBody?? '',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12,
                       color: AppColors.darkGray),
-                    overflow: TextOverflow.ellipsis,),
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ],
-            )
-          ),
+              ),
+            ],
+          )),
           SizedBox(
             height: 60,
             child: Column(
@@ -94,22 +99,30 @@ class ChatListItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(DateConverter.getTimeString(user.lastSeenDateTime!),style:
-                TextStyle(fontWeight: FontWeight.w500,fontSize: 12,
+                if(user.lastSeenDateTime != null)
+                Text(
+                  DateConverter.getTimeString(user.lastSeenDateTime!),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12,
                     color: AppColors.darkGray,
-                )
-                  ,),
-                if(notSeenCount.isNotEmpty) Container(
-                    width: 25,
-                    height: 25,
-                    margin: const EdgeInsets.only(top: 2),
-                    decoration: BoxDecoration(
-                      color: AppColors.darkGreen,
-                      borderRadius: const BorderRadius.all(Radius.circular(16)),
-                    ),
-                    child: Center(child: Text(notSeenCount,
-                      style: const TextStyle(color: AppColors.white),))
+                  ),
                 ),
+                if (notSeenCount.isNotEmpty)
+                  Container(
+                      width: 25,
+                      height: 25,
+                      margin: const EdgeInsets.only(top: 2),
+                      decoration: BoxDecoration(
+                        color: AppColors.darkGreen,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16)),
+                      ),
+                      child: Center(
+                          child: Text(
+                        notSeenCount,
+                        style: const TextStyle(color: AppColors.white),
+                      ))),
               ],
             ),
           ),
@@ -117,5 +130,4 @@ class ChatListItem extends StatelessWidget {
       ),
     );
   }
-
 }

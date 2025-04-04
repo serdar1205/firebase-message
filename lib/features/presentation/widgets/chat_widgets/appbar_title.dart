@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
+import '../../../../core/constants/colors/app_colors.dart';
 import '../../../domain/entities/user_entity.dart';
-import '../shimmer_image.dart';
 
 class AppBarTitle extends StatelessWidget {
   const AppBarTitle({super.key, required this.messageData});
@@ -11,26 +10,18 @@ class AppBarTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Container(
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(50)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withAlpha(50),
-                  spreadRadius: 0.3,
-                  blurRadius: 4.0,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: ImageWithShimmer(
-              imageUrl: messageData.userAvatar!,
-              width: 50,
-              height: 50,
-            ),
+        CircleAvatar(
+          radius: 25,
+          backgroundColor: AvatarColorHelper.getColor(
+              messageData.fullName ?? messageData.email!),
+          child: Text(
+            messageData.fullName![0].toUpperCase(),
+            style: TextStyle(
+                color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
+          ),
         ),
         SizedBox(width: 12),
         Expanded(
@@ -41,10 +32,7 @@ class AppBarTitle extends StatelessWidget {
             Text(
               messageData.fullName!,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w600
-              ),
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
             ),
             SizedBox(
               height: 2,
@@ -52,7 +40,9 @@ class AppBarTitle extends StatelessWidget {
             Text(
               "Online",
               style: TextStyle(
-                fontWeight: FontWeight.w500,fontSize: 12,),
+                fontWeight: FontWeight.w500,
+                fontSize: 12,
+              ),
             )
           ],
         ))

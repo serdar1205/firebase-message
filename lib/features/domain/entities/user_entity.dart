@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 
+
 class UserEntity extends Equatable {
   const UserEntity({
     this.id,
-    this.userPhoneNumber,
     this.fullName,
-    this.userAvatar,
+    this.email,
     this.lastSeenDateTime,
     this.lastMessageBody,
     this.lastMessageDateTime,
@@ -14,14 +14,11 @@ class UserEntity extends Equatable {
     this.lastMessageIsReadByTargetUser,
     this.isConfirm,
     this.notReadMessageCount,
-    this.verifyCode,
-    this.verifyProfile,
   });
 
-  final int? id;
-  final String? userPhoneNumber;
+  final String? id;
   final String? fullName;
-  final String? userAvatar;
+  final String? email;
   final String? lastSeenDateTime;
   final String? lastMessageBody;
   final String? lastMessageDateTime;
@@ -30,24 +27,21 @@ class UserEntity extends Equatable {
   final bool? lastMessageIsReadByTargetUser;
   final bool? isConfirm;
   final int? notReadMessageCount;
-  final String? verifyCode;
-  final bool? verifyProfile;
 
   @override
   List<Object?> get props => [
-        id,
-        userPhoneNumber,
-        fullName,
-        userAvatar,
-        lastSeenDateTime,
-        lastMessageBody,
-        lastMessageDateTime,
-        lastMessageCategory,
-        lastMessageType,
-        lastMessageIsReadByTargetUser,
-        isConfirm,
-        notReadMessageCount,
-        verifyCode,
-        verifyProfile,
-      ];
+    id,
+    fullName,
+    email,
+    lastSeenDateTime,
+    lastMessageBody,
+    lastMessageDateTime,
+    lastMessageCategory,
+    lastMessageType,
+    lastMessageIsReadByTargetUser,
+    isConfirm,
+    notReadMessageCount,
+  ];
+
 }
+

@@ -25,6 +25,7 @@ class KTextField extends StatefulWidget {
   final bool? isDense;
   final bool? autofocus;
   final bool? obscureText;
+final FocusNode? focusNode;
 
   const KTextField({
     super.key,
@@ -48,6 +49,7 @@ class KTextField extends StatefulWidget {
     this.isDense,
     this.autofocus,
     this.obscureText,
+    this.focusNode,
   });
 
   @override
@@ -66,6 +68,7 @@ class _KTextFieldState extends State<KTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      focusNode: widget.focusNode ,
       showCursor: true,
       obscureText: widget.obscureText ?? false,
       contextMenuBuilder: kContextMenuBuilder,

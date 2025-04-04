@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:firebase_message/core/constants/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:heroicons_flutter/heroicons_flutter.dart';
-class SearchWidget extends StatefulWidget {
 
+class SearchWidget extends StatefulWidget {
   final TextEditingController searchCtrl;
   final Function onSearch;
   final Function? onClear;
@@ -60,23 +60,24 @@ class _SearchWidgetState extends State<SearchWidget> {
       controller: widget.searchCtrl,
       onChanged: onSearchChange,
       decoration: InputDecoration(
-        prefixIcon:Padding(
-          padding: const EdgeInsets.only(right: 6.0,left: 6),
-          child: Icon(HeroiconsOutline.magnifyingGlass,color: AppColors.gray,),
+        prefixIcon: Padding(
+          padding: const EdgeInsets.only(right: 6.0, left: 6),
+          child: Icon(
+            HeroiconsOutline.magnifyingGlass,
+            color: AppColors.gray,
+          ),
         ),
         prefixIconConstraints: BoxConstraints(
-          maxHeight: 24,maxWidth: 40,
-          minHeight: 24,minWidth: 24,
+          maxHeight: 24,
+          maxWidth: 40,
+          minHeight: 24,
+          minWidth: 24,
         ),
         errorText: null,
         hintText: "Поиск",
         hintStyle: TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 16,
-          color: AppColors.gray
-
-        ),
-      contentPadding: const EdgeInsets.symmetric(vertical: 10,horizontal: 8),
+            fontWeight: FontWeight.w500, fontSize: 16, color: AppColors.gray),
+        contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         fillColor: AppColors.stroke,
         filled: true,
         border: OutlineInputBorder(
@@ -97,25 +98,25 @@ class _SearchWidgetState extends State<SearchWidget> {
         ),
         suffixIcon: isloading
             ? Container(
-          width: 22,
-          alignment: Alignment.center,
-          child: const SizedBox(
-            height: 22,
-            width: 22,
-            child: CircularProgressIndicator.adaptive(
-              strokeWidth: 2,
-            ),
-          ),
-        )
+                width: 22,
+                alignment: Alignment.center,
+                child: const SizedBox(
+                  height: 22,
+                  width: 22,
+                  child: CircularProgressIndicator.adaptive(
+                    strokeWidth: 2,
+                  ),
+                ),
+              )
             : widget.searchCtrl.text.isNotEmpty
-            ? InkWell(
-          borderRadius: BorderRadius.circular(12),
-          onTap: clear,
-          child: Icon(
-            Icons.clear,
-          ),
-        )
-            : null,
+                ? InkWell(
+                    borderRadius: BorderRadius.circular(12),
+                    onTap: clear,
+                    child: Icon(
+                      Icons.clear,
+                    ),
+                  )
+                : null,
       ),
     );
   }
